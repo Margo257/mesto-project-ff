@@ -1,7 +1,7 @@
 import './pages/index.css';
 import { initialCards } from './components/cards';
 import { createCard, deleteCard, like } from './components/card';
-import { openPopup, close } from './components/modal';
+import { openPopup, closePopup } from './components/modal';
 
 const placesList = document.querySelector('.places__list');
 
@@ -10,7 +10,7 @@ const profileEditButton = document.querySelector('.profile__edit-button');
 //+
 const profileAddButton = document.querySelector('.profile__add-button');
 //кнопка закрытия
-const popupСlose = document.querySelectorAll('.popup__close');
+const popupsСlose = document.querySelectorAll('.popup__close');
 
 //попапы
 const popupAll = document.querySelectorAll('.popup');
@@ -47,7 +47,7 @@ function handleFormSubmit(evt) {
   profileTitle.textContent = nameInput.value;
   profileDescription.textContent = jobInput.value;
 
-  close(popupTypeEdit);
+  closePopup(popupTypeEdit);
   formEditProfile.reset();
 }
 
@@ -61,7 +61,7 @@ function handleFormAddCardSubmit(evt) {
 
   placesList.prepend(createCard(newCard, deleteCard, like, openImg));
 
-  close(popupTypeNewCard);
+  closePopup(popupTypeNewCard);
   formAddCard.reset();
 }
 
@@ -89,9 +89,9 @@ profileAddButton.addEventListener('click', () => {
 });
 
 //закрываем попапы
-popupСlose.forEach((buttonClose) => {
+popupsСlose.forEach((buttonClose) => {
   buttonClose.addEventListener('click', function (evt) {
     evt.stopPropagation;
-    close(evt.target.closest('.popup'));
+    closePopup(evt.target.closest('.popup'));
   });
 });
