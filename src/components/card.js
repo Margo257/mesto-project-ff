@@ -21,17 +21,22 @@ function createCard(initialCard, deleteCard, like, openImg, id) {
   }
 
   const likeButton = cardEl.querySelector('.card__like-button');
+  const likeCounter = cardEl.querySelector('.card__like-counter');
+  
+  likeCounter.textContent = initialCard.likes.length;
+  
+  const isLiked = initialCard.likes.some(({_id}) => {
+    return _id === id
+  });
 
-  const countLikes = (info) => {
-    const likeCounter = cardEl.querySelector('.card__like-counter');
-    likeCounter.textContent = info;
+  if (isLiked) {
+    likeButton.classList.add('card__like-button_is-active')
   };
 
   likeButton.addEventListener('click', (evt) => {
-    like(evt.target, initialCard, countLikes); 
+    like(likeButton, likeCounter,  initialCard); 
   });
 
-  countLikes(initialCard.likes.length)
 
   cardImage.addEventListener('click', (evt) => {
     evt.stopPropagation;
@@ -41,16 +46,13 @@ function createCard(initialCard, deleteCard, like, openImg, id) {
   return cardEl;
 }
 
-//function like(evt) {
-//  evt.classList.toggle('card__like-button_is-active');
-//}
-
-function like ( button, initialCard, countLikes) {
-  if (button.classList.contains('card__like-button_is-active')) {
+function like ( likeButton, likeCounter, initialCard) {
+  
+  if (likeButton.classList.contains('card__like-button_is-active')) {
     unlikeCard(initialCard)
     .then ((data) => {
-      button.classList.remove('card__like-button_is-active')
-      countLikes(data.likes.length)
+      likeButton.classList.remove('card__like-button_is-active')
+      likeCounter.textContent = data.likes.length;
     })      
     .catch((err) => {
       console.log(err)
@@ -58,8 +60,8 @@ function like ( button, initialCard, countLikes) {
   } else {
     likeCard(initialCard)
     .then ((data) => {
-      countLikes(data.likes.length)
-      button.classList.add('card__like-button_is-active')
+      likeCounter.textContent = data.likes.length
+      likeButton.classList.add('card__like-button_is-active')
     })
     .catch((err) => {
       console.log(err)

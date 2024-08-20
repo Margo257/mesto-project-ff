@@ -3,7 +3,13 @@ const hideInputError = (formElement, inputElement,configValidation) => {
     inputElement.classList.remove(configValidation.inputErrorClass);
     errorElement.classList.remove(configValidation.errorClass);
     errorElement.textContent = '';
+    inputElement.setCustomValidity('');
 };
+
+const disableSubmitButton = (buttonElement, configValidation) => {
+  buttonElement.classList.add(configValidation.inactiveButtonClass);
+  buttonElement.setAttribute('disabled', 'disabled');
+}
 
 const enableValidation = (configValidation) => {
   const formList = Array.from(document.querySelectorAll(configValidation.formSelector));
@@ -63,22 +69,21 @@ const toggleButtonState = (inputList, buttonElement) => {
 
   formList.forEach((formElement) => {
     setEventListeners(formElement);
-    formElement.addEventListener('submit', function (evt) {
-      evt.preventDefault();
-    });
    });  
 };
 
 // очистка ошибок валидации вызовом clearValidation и отключение кнопки
 function clearValidation (formElement, configValidation){
   const inputElements = Array.from(formElement.querySelectorAll(configValidation.inputSelector));
-
+  const submitButton = formElement.querySelector(configValidation.submitButtonSelector);
 
   inputElements.forEach((inputElement) => {
       hideInputError(formElement, inputElement, configValidation);  
+      inputElement.value = '';
   });
+    disableSubmitButton(submitButton, configValidation);
 }   
 
 
-  export {enableValidation, clearValidation }
+  export {enableValidation, clearValidation}
 

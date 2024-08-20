@@ -88,7 +88,7 @@ function changeProfileData (data) {
   profileImage.style.backgroundImage = `url(${data.avatar})`;
 }
 
-function deleteCard (idCard, card) {
+function deleteCard ( idCard, card) {
   openPopup(popupDelete);
   popupDelete.dataset.id = idCard;
   popupDeleteButton.addEventListener(
@@ -98,14 +98,14 @@ function deleteCard (idCard, card) {
         if (res) {
           deleteCardItem(idCard, card);
           closePopup(popupDelete);
-        }
+        }popupDeleteButton.removeaddEventListener
       })
       .catch((err) => console.log(err));
   },
   true
 );
-}
 
+}
 
 function handleFormSubmit(evt) {
   evt.preventDefault();
