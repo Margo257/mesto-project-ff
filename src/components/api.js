@@ -75,14 +75,7 @@ const updateAvatar = (info) => {
   });
 };
 
-const deleteCardRequest = (id) => {
-  return fetch(`${config.baseUrl}/cards/${id}`, {
-    method: 'DELETE',
-    headers: config.headers
-  }).then((res) => {
-    return handleResponse(res);
-  });
-};
+
 
 const likeCard = (card) => {
   return fetch(`${config.baseUrl}/cards/like/${card._id}`, {
@@ -102,5 +95,13 @@ const unlikeCard = (card) => {
   });
 };
 
+const deleteCardRequest = (card) => {
+  return fetch(`${config.baseUrl}/cards/${card._id}`, {
+    method: 'DELETE',
+    headers: config.headers
+  }).then((res) => {
+    return handleResponse(res);
+  });
+};
 
 export { getProfileData, getInitialCards, sendCardInfo, updateProfileData, updateAvatar,  likeCard, unlikeCard, deleteCardRequest }

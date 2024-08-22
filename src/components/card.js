@@ -12,9 +12,9 @@ function createCard(initialCard, deleteCard, like, openImg, id) {
 
   const deleteButton = cardEl.querySelector('.card__delete-button');
 
-  if (initialCard.owner._id == id) {
+  if (initialCard.owner._id === id) {
     deleteButton.addEventListener('click', () => {
-      deleteCard(initialCard._id, cardEl)
+      deleteCard(initialCard, cardEl)
     });
   } else {
     deleteButton.remove();
@@ -69,10 +69,4 @@ function like ( likeButton, likeCounter, initialCard) {
   }      
 };
 
-function deleteCardItem(idCard, el) {
-  const elPopup = document.querySelector(`[data-id = '${idCard}']`);
-  el.remove();
-  elPopup.dataset.id = '';
-}
-
-export { createCard, deleteCardItem, like };
+export { createCard, like }
